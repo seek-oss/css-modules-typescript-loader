@@ -14,7 +14,7 @@ There are currently a lot of [solutions to this problem](https://www.npmjs.com/s
 
 ## Usage
 
-This loader emits TypeScript declaration files matching your CSS Modules e.g. `Component.css.d.ts`. Place `css-modules-typescript-loader` directly after `css-loader` in your webpack config.
+Place `css-modules-typescript-loader` directly after `css-loader` in your webpack config.
 
 ```js
 module.exports = {
