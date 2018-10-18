@@ -1,7 +1,7 @@
 {
   "name": "css-modules-typescript-loader",
   "version": "0.0.0-development",
-  "description": "Webpack loader to create type declarations for css modules",
+  "description": "Webpack loader to create TypeScript declarations for CSS Modules",
   "main": "index.js",
   "repository": {
     "type": "git",
