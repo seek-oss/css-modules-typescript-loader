@@ -16,19 +16,16 @@ const getTypeMismatchError = cssModuleInterfaceFilename =>
   );
 
 const cssModuleToNamedExports = cssModuleKeys => {
-  return cssModuleKeys.map(key => `export const ${key}: string;`).join('\n');
+  return cssModuleKeys
+    .map(key => `export const ${key}: string;`)
+    .join('\n')
+    .concat('\n');
 };
 
 const filenameToTypingsFilename = filename => {
   const dirName = path.dirname(filename);
   const baseName = path.basename(filename);
   return path.join(dirName, `${baseName}.d.ts`);
-};
-
-const generateNamedExports = cssModuleKeys => {
-  const namedExports = cssModuleToNamedExports(cssModuleKeys);
-  return `${namedExports}
-`;
 };
 
 const validModes = ['emit', 'verify'];
@@ -54,7 +51,7 @@ module.exports = function(content, ...rest) {
     }
   }
 
-  cssModuleDefinition = `${bannerMessage}\n${generateNamedExports(
+  cssModuleDefinition = `${bannerMessage}\n${cssModuleToNamedExports(
     cssModuleKeys
   )}`;
 
