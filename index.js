@@ -51,7 +51,7 @@ module.exports = function(content, ...rest) {
     }
   }
 
-  cssModuleDefinition = `${bannerMessage}\n${cssModuleToNamedExports(
+  const cssModuleDefinition = `${bannerMessage}\n${cssModuleToNamedExports(
     cssModuleKeys
   )}`;
 
