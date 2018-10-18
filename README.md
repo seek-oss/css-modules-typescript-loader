@@ -2,6 +2,8 @@
 
 [Webpack](https://webpack.js.org/) loader to create [TypeScript](https://www.typescriptlang.org/) declarations for [CSS Modules](https://github.com/css-modules/css-modules).
 
+Emits TypeScript declaration files matching your CSS Modules in the same location as your source files, e.g. `src/Component.css` will generate `src/Component.css.d.ts`.
+
 ## Why?
 
 There are currently a lot of [solutions to this problem](https://www.npmjs.com/search?q=css%20modules%20typescript%20loader). However, this package differs in the following ways:
