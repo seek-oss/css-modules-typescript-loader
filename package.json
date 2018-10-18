@@ -1,13 +1,13 @@
 {
   "name": "css-modules-typescript-loader",
   "version": "0.0.0-development",
-  "description": "Webpack loader to create type declarations for css modules",
+  "description": "Webpack loader to create TypeScript declarations for CSS Modules",
   "main": "index.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/seek-oss/css-modules-typescript-loader.git"
   },
-  "author": "Seek",
+  "author": "SEEK",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/seek-oss/css-modules-typescript-loader/issues"
