@@ -22,6 +22,7 @@ const getTypeMismatchError = ({ filename, expected, actual }) => {
 const cssModuleToNamedExports = cssModuleKeys => {
   return cssModuleKeys
     .map(key => `export const ${key}: string;`)
+    .sort()
     .join('\n')
     .concat('\n');
 };
