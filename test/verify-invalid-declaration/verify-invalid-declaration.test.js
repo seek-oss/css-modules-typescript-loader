@@ -1,11 +1,14 @@
 const compiler = require('../compiler.js');
+const getErrorMessage = require('../getErrorMessage');
 
 test('Can error on invalid declaration', async () => {
-  await expect(
-    compiler(require.resolve('./index.js'), {
+  expect.assertions(1);
+
+  try {
+    await compiler(require.resolve('./index.js'), {
       mode: 'verify'
-    })
-  ).rejects.toMatchObject({
-    failed: true
-  });
+    });
+  } catch (err) {
+    expect(getErrorMessage(err.errors[0])).toMatchSnapshot();
+  }
 });

@@ -1,0 +1,6 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Can error on invalid declaration 1`] = `
+"Error: Generated type declaration does not exist. Run webpack and commit the type declaration for '/test/verify-missing-declaration/index.css.d.ts'
+"
+`;
