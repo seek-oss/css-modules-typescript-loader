@@ -17,7 +17,7 @@ const getTypeMismatchError = ({ filename, expected, actual }) => {
   return new Error(
     `Generated type declaration file is outdated. Run webpack and commit the updated type declaration for '${filename}'\n\n${diff}`
   );
-}
+};
 
 const cssModuleToNamedExports = cssModuleKeys => {
   return cssModuleKeys
@@ -35,8 +35,21 @@ const filenameToTypingsFilename = filename => {
 
 const validModes = ['emit', 'verify'];
 
+const isFileNotFound = err => err && err.code === 'ENOENT';
+
+const makeDoneHandlers = (callback, content, rest) => ({
+  failed: e => callback(e),
+  success: () => callback(null, content, ...rest)
+});
+
+const makeFileHandlers = filename => ({
+  read: handler => fs.readFile(filename, { encoding: 'utf-8' }, handler),
+  write: (content, handler) =>
+    fs.writeFile(filename, content, { encoding: 'utf-8' }, handler)
+});
+
 module.exports = function(content, ...rest) {
-  const callback = this.async();
+  const { failed, success } = makeDoneHandlers(this.async(), content, rest);
 
   const filename = this.resourcePath;
   const { mode = 'emit' } = loaderUtils.getOptions(this) || {};
@@ -45,6 +58,7 @@ module.exports = function(content, ...rest) {
   }
 
   const cssModuleInterfaceFilename = filenameToTypingsFilename(filename);
+  const { read, write } = makeFileHandlers(cssModuleInterfaceFilename);
 
   const keyRegex = /"([^\\"]+)":/g;
   let match;
@@ -61,43 +75,44 @@ module.exports = function(content, ...rest) {
   )}`;
 
   if (mode === 'verify') {
-    fs.readFile(
-      cssModuleInterfaceFilename,
-      { encoding: 'utf-8' },
-      (err, fileContents) => {
-        if (err) {
-          const error =
-            err.code === 'ENOENT'
-              ? getNoDeclarationFileError({
-                filename: cssModuleInterfaceFilename
-              })
-              : err;
-          return callback(error);
-        }
+    read((err, fileContents) => {
+      if (isFileNotFound(err)) {
+        return failed(
+          getNoDeclarationFileError({
+            filename: cssModuleInterfaceFilename
+          })
+        );
+      }
 
-        if (cssModuleDefinition !== fileContents) {
-          return callback(getTypeMismatchError({
+      if (err) {
+        return failed(err);
+      }
+
+      if (cssModuleDefinition !== fileContents) {
+        return failed(
+          getTypeMismatchError({
             filename: cssModuleInterfaceFilename,
             expected: cssModuleDefinition,
             actual: fileContents
-          }));
-        }
+          })
+        );
+      }
 
-        return callback(null, content, ...rest);
-      }
-    );
+      return success();
+    });
   } else {
-    fs.writeFile(
-      cssModuleInterfaceFilename,
-      cssModuleDefinition,
-      { encoding: 'utf-8' },
-      err => {
-        if (err) {
-          return callback(err);
-        } else {
-          return callback(null, content, ...rest);
-        }
+    read((_, fileContents) => {
+      if (cssModuleDefinition !== fileContents) {
+        write(cssModuleDefinition, err => {
+          if (err) {
+            failed(err);
+          } else {
+            success();
+          }
+        });
+      } else {
+        success();
       }
-    );
+    });
   }
 };
