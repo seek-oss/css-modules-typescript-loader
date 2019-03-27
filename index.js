@@ -60,7 +60,7 @@ module.exports = function(content, ...rest) {
   const cssModuleInterfaceFilename = filenameToTypingsFilename(filename);
   const { read, write } = makeFileHandlers(cssModuleInterfaceFilename);
 
-  const keyRegex = /"([^\\"]+)":/g;
+  const keyRegex = /"([^\\"]+\w)":/g;
   let match;
   const cssModuleKeys = [];
 
