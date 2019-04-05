@@ -9,3 +9,8 @@
 .otherClass {
   display: block;
 }
+
+.hyphened-classname,
+.underscored_classname {
+  color: papayawhip;
+}

@@ -14,8 +14,6 @@ There are currently a lot of [solutions to this problem](https://www.npmjs.com/s
 
 - Ensures committed TypeScript declarations are in sync with the code that generated them via the [`verify` mode](#verify-mode).
 
-- Doesn't silently ignore invalid TypeScript identifiers. If a class name is not valid TypeScript (e.g. `.foo-bar`, instead of `.fooBar`), `tsc` should report an error.
-
 ## Usage
 
 Place `css-modules-typescript-loader` directly after `css-loader` in your webpack config.
