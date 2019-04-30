@@ -9,3 +9,8 @@
 .otherClass {
   display: block;
 }
+
+.composedClass {
+  composes: baseClass from './common.css';
+  color: cornflowerblue;
+}

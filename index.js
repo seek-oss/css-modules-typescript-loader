@@ -63,11 +63,13 @@ module.exports = function(content, ...rest) {
   const cssModuleInterfaceFilename = filenameToTypingsFilename(filename);
   const { read, write } = makeFileHandlers(cssModuleInterfaceFilename);
 
-  const keyRegex = /"([^\\"]+)":\s*"(?:[^\\"]+)",?$/gm;
+  const keyRegex = /"([^\\"]+)":/g;
   let match;
   const cssModuleKeys = [];
 
-  while ((match = keyRegex.exec(content))) {
+  const localExports = content.substring(Math.max(content.indexOf('exports.locals'), 0))
+
+  while ((match = keyRegex.exec(localExports))) {
     if (cssModuleKeys.indexOf(match[1]) < 0) {
       cssModuleKeys.push(match[1]);
     }
