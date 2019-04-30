@@ -3,6 +3,7 @@ const webpack = require('webpack');
 const memoryfs = require('memory-fs');
 
 module.exports = (entry, options = {}) => {
+  const { sourceMap, ...loaderOptions } = options;
   const compiler = webpack({
     context: path.dirname(entry),
     entry,
@@ -17,12 +18,13 @@ module.exports = (entry, options = {}) => {
           use: [
             {
               loader: require.resolve('../index.js'),
-              options
+              options: loaderOptions
             },
             {
               loader: 'css-loader',
               options: {
-                modules: true
+                modules: true,
+                sourceMap: !!sourceMap
               }
             }
           ]
