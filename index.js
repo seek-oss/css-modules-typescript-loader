@@ -57,7 +57,7 @@ module.exports = function(content, ...rest) {
   const filename = this.resourcePath;
   const { mode = 'emit' } = loaderUtils.getOptions(this) || {};
   if (!validModes.includes(mode)) {
-    return callback(new Error(`Invalid mode option: ${mode}`));
+    return failed(new Error(`Invalid mode option: ${mode}`));
   }
 
   const cssModuleInterfaceFilename = filenameToTypingsFilename(filename);
