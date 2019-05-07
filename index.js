@@ -57,17 +57,23 @@ module.exports = function(content, ...rest) {
   const filename = this.resourcePath;
   const { mode = 'emit' } = loaderUtils.getOptions(this) || {};
   if (!validModes.includes(mode)) {
-    return callback(new Error(`Invalid mode option: ${mode}`));
+    return failed(new Error(`Invalid mode option: ${mode}`));
   }
 
   const cssModuleInterfaceFilename = filenameToTypingsFilename(filename);
   const { read, write } = makeFileHandlers(cssModuleInterfaceFilename);
 
-  const keyRegex = /"([^\\"]+)":\s*"(?:[^\\"]+)",?$/gm;
+  const keyRegex = /"([^\\"]+)":/g;
   let match;
   const cssModuleKeys = [];
 
-  while ((match = keyRegex.exec(content))) {
+  const localExports = content.split('exports.locals')[1];
+
+  if (!localExports) {
+    return failed(new Error(`No exported locals found for ${filename}`));
+  }
+
+  while ((match = keyRegex.exec(localExports))) {
     if (cssModuleKeys.indexOf(match[1]) < 0) {
       cssModuleKeys.push(match[1]);
     }
