@@ -69,10 +69,6 @@ module.exports = function(content, ...rest) {
 
   const localExports = content.split('exports.locals')[1];
 
-  if (!localExports) {
-    return failed(new Error(`No exported locals found for ${filename}`));
-  }
-
   while ((match = keyRegex.exec(localExports))) {
     if (cssModuleKeys.indexOf(match[1]) < 0) {
       cssModuleKeys.push(match[1]);
