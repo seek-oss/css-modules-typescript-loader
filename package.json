@@ -28,7 +28,8 @@
   },
   "homepage": "https://github.com/seek-oss/css-modules-typescript-loader#readme",
   "dependencies": {
-    "line-diff": "^2.0.1"
+    "line-diff": "^2.0.1",
+    "loader-utils: "^1.2.3"
   },
   "devDependencies": {
     "@commitlint/cli": "^7.2.1",
