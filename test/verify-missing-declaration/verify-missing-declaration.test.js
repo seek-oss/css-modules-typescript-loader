@@ -9,6 +9,9 @@ test('Can error on invalid declaration', async () => {
       mode: 'verify'
     });
   } catch (err) {
-    expect(getErrorMessage(err.errors[0])).toMatchSnapshot();
+    // make test robust for Windows by replacing backslashes in the file path with slashes
+    let errorMessage = getErrorMessage(err.errors[0]).replace(/(?<=Error:.*)\\/g, "/");
+
+    expect(errorMessage).toMatchSnapshot();
   }
 });
