@@ -10,8 +10,8 @@ exports[`Can error on invalid declaration 1`] = `
  -   'classInTypeScriptFile': string;
  +   'classInCssFile': string;
    }
-   declare const cssExports: CssExports;
-   export = cssExports;
+   export const cssExports: CssExports;
+   export default cssExports;
    
 
 "
