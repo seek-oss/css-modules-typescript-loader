@@ -51,6 +51,8 @@ const makeFileHandlers = filename => ({
     fs.writeFile(filename, content, { encoding: 'utf-8' }, handler)
 });
 
+const normalizeNewlines = string => string.replace(/\r\n|\r/g, '\n');
+
 module.exports = function(content, ...rest) {
   const { failed, success } = makeDoneHandlers(this.async(), content, rest);
 
@@ -91,6 +93,8 @@ module.exports = function(content, ...rest) {
         return failed(err);
       }
 
+      fileContents = normalizeNewlines(fileContents);
+
       if (cssModuleDefinition !== fileContents) {
         return failed(
           getTypeMismatchError({
@@ -105,6 +109,11 @@ module.exports = function(content, ...rest) {
     });
   } else {
     read((_, fileContents) => {
+
+      if (fileContents) {
+        fileContents = normalizeNewlines(fileContents);
+      }
+
       if (cssModuleDefinition !== fileContents) {
         write(cssModuleDefinition, err => {
           if (err) {
