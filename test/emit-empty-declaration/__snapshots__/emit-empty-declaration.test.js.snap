@@ -6,7 +6,7 @@ exports[`Can emit valid declaration without classes 1`] = `
 interface CssExports {
 
 }
-declare var cssExports: CssExports;
+declare const cssExports: CssExports;
 export = cssExports;
 "
 `;
