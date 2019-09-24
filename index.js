@@ -14,7 +14,7 @@ const getNoDeclarationFileError = ({ filename }) =>
   );
 
 const getTypeMismatchError = ({ filename, expected, actual }) => {
-  const diff = new LineDiff(actual, expected).toString();
+  const diff = new LineDiff(enforceLFLineSeparators(actual), expected).toString();
 
   return new Error(
     `Generated type declaration file is outdated. Run webpack and commit the updated type declaration for '${filename}'\n\n${diff}`
@@ -34,6 +34,19 @@ const filenameToTypingsFilename = filename => {
   const dirName = path.dirname(filename);
   const baseName = path.basename(filename);
   return path.join(dirName, `${baseName}.d.ts`);
+};
+
+const enforceLFLineSeparators = text => {
+  if (text) {
+    // replace all CRLFs (Windows) by LFs (Unix)
+    return text.replace(/\r\n/g, "\n");
+  } else {
+    return text;
+  }
+};
+
+const compareText = (contentA, contentB) => {
+  return enforceLFLineSeparators(contentA) === enforceLFLineSeparators(contentB);
 };
 
 const validModes = ['emit', 'verify'];
@@ -91,7 +104,7 @@ module.exports = function(content, ...rest) {
         return failed(err);
       }
 
-      if (cssModuleDefinition !== fileContents) {
+      if (!compareText(cssModuleDefinition, fileContents)) {
         return failed(
           getTypeMismatchError({
             filename: cssModuleInterfaceFilename,
@@ -105,7 +118,7 @@ module.exports = function(content, ...rest) {
     });
   } else {
     read((_, fileContents) => {
-      if (cssModuleDefinition !== fileContents) {
+      if (!compareText(cssModuleDefinition, fileContents)) {
         write(cssModuleDefinition, err => {
           if (err) {
             failed(err);
