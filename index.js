@@ -27,7 +27,7 @@ const cssModuleToInterface = (cssModuleKeys) => {
     .map(key => `  '${key}': string;`)
     .join('\n');
 
-  return `interface CssExports {\n${interfaceFields}\n}`;
+  return `interface CssExports {\n  [key: string]: void;\n${interfaceFields}\n}`;
 };
 
 const filenameToTypingsFilename = filename => {
