@@ -1,5 +1,5 @@
 {
-  "name": "css-modules-typescript-loader",
+  "name": "@alza54/css-modules-typescript-loader",
   "version": "1.0.0",
   "description": "Webpack loader to create TypeScript declarations for CSS Modules",
   "main": "index.js",
