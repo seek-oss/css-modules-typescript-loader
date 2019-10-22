@@ -1,6 +1,6 @@
 {
   "name": "@alza54/css-modules-typescript-loader",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Webpack loader to create TypeScript declarations for CSS Modules",
   "main": "index.js",
   "repository": {
