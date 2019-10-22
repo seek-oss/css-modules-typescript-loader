@@ -5,12 +5,12 @@
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/seek-oss/css-modules-typescript-loader.git"
+    "url": "https://github.com/alza54/css-modules-typescript-loader.git"
   },
   "author": "SEEK",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/seek-oss/css-modules-typescript-loader/issues"
+    "url": "https://github.com/alza54/css-modules-typescript-loader/issues"
   },
   "scripts": {
     "commit": "git-cz",
@@ -26,7 +26,7 @@
       "commit-msg": "commitlint --edit --extends seek"
     }
   },
-  "homepage": "https://github.com/seek-oss/css-modules-typescript-loader#readme",
+  "homepage": "https://github.com/alza54/css-modules-typescript-loader#readme",
   "dependencies": {
     "line-diff": "^2.0.1",
     "loader-utils": "^1.2.3"
