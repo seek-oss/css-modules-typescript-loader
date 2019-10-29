@@ -58,6 +58,23 @@ Instead of emitting new TypeScript declarations, this will throw an error if a g
 
 This workflow is similar to using the [Prettier](https://github.com/prettier/prettier) [`--list-different` option](https://prettier.io/docs/en/cli.html#list-different).
 
+### Prefix
+
+It is possible to customize generated interface name with prefix.
+
+For example:
+
+```js
+{
+  loader: 'css-modules-typescript-loader',
+  options: {
+    prefix: 'I'
+  }
+}
+```
+
+will generate `ICssModules` interface name.
+
 ## With Thanks
 
 This package borrows heavily from [typings-for-css-modules-loader](https://github.com/Jimdo/typings-for-css-modules-loader).
