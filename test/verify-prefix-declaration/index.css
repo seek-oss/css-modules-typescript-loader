@@ -1,0 +1,16 @@
+.validClass {
+  position: relative;
+}
+
+.someClass {
+  position: relative;
+}
+
+.otherClass {
+  display: block;
+}
+
+.hyphened-classname,
+.underscored_classname {
+  color: papayawhip;
+}
