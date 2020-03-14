@@ -21,6 +21,13 @@ const getTypeMismatchError = ({ filename, expected, actual }) => {
   );
 };
 
+const cssModuleToConsts = (cssModuleKeys) => {
+  return cssModuleKeys
+    .sort()
+    .map(key => `export const ${key}: string;`)
+    .join('\n');
+};
+
 const cssModuleToInterface = (cssModuleKeys) => {
   const interfaceFields = cssModuleKeys
     .sort()
@@ -68,7 +75,7 @@ module.exports = function(content, ...rest) {
   const { failed, success } = makeDoneHandlers(this.async(), content, rest);
 
   const filename = this.resourcePath;
-  const { mode = 'emit' } = loaderUtils.getOptions(this) || {};
+  const { mode = 'emit', namedExports = false } = loaderUtils.getOptions(this) || {};
   if (!validModes.includes(mode)) {
     return failed(new Error(`Invalid mode option: ${mode}`));
   }
@@ -88,7 +95,7 @@ module.exports = function(content, ...rest) {
     }
   }
 
-  const cssModuleDefinition = `${bannerMessage}\n${cssModuleToInterface(cssModuleKeys)}\n${cssModuleExport}`;
+  const cssModuleDefinition = namedExports ? `${bannerMessage}\n${cssModuleToConsts(cssModuleKeys)}\n` : `${bannerMessage}\n${cssModuleToInterface(cssModuleKeys)}\n${cssModuleExport}`;
 
   if (mode === 'verify') {
     read((err, fileContents) => {
