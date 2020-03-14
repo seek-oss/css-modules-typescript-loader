@@ -21,7 +21,7 @@ const getTypeMismatchError = ({ filename, expected, actual }) => {
   );
 };
 
-const cssModuleToConsts = (cssModuleKeys) => {
+const cssModuleToNamedExports = (cssModuleKeys) => {
   return cssModuleKeys
     .sort()
     .map(key => `export const ${key}: string;`)
@@ -95,7 +95,7 @@ module.exports = function(content, ...rest) {
     }
   }
 
-  const cssModuleDefinition = namedExports ? `${bannerMessage}\n${cssModuleToConsts(cssModuleKeys)}\n` : `${bannerMessage}\n${cssModuleToInterface(cssModuleKeys)}\n${cssModuleExport}`;
+  const cssModuleDefinition = namedExports ? `${bannerMessage}\n${cssModuleToNamedExports(cssModuleKeys)}\n` : `${bannerMessage}\n${cssModuleToInterface(cssModuleKeys)}\n${cssModuleExport}`;
 
   if (mode === 'verify') {
     read((err, fileContents) => {
