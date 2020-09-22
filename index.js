@@ -64,6 +64,14 @@ const makeFileHandlers = filename => ({
     fs.writeFile(filename, content, { encoding: 'utf-8' }, handler)
 });
 
+const extractLocalExports = (content) => {
+  let localExports = content.split('exports.locals')[1];
+  if (!localExports) {
+    localExports = content.split('___CSS_LOADER_EXPORT___.locals')[1];
+  }
+  return localExports;
+}
+
 module.exports = function(content, ...rest) {
   const { failed, success } = makeDoneHandlers(this.async(), content, rest);
 
@@ -80,7 +88,7 @@ module.exports = function(content, ...rest) {
   let match;
   const cssModuleKeys = [];
 
-  const localExports = content.split('exports.locals')[1];
+  const localExports = extractLocalExports(content);
 
   while ((match = keyRegex.exec(localExports))) {
     if (cssModuleKeys.indexOf(match[1]) < 0) {

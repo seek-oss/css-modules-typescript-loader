@@ -35,7 +35,7 @@
     "@commitlint/cli": "^7.2.1",
     "commitizen": "^3.0.2",
     "commitlint-config-seek": "^1.0.0",
-    "css-loader": "^1.0.0",
+    "css-loader": "^4.2.1",
     "cz-conventional-changelog": "^2.1.0",
     "husky": "^1.1.2",
     "jest": "^24.7.1",
