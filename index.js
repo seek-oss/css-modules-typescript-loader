@@ -24,7 +24,7 @@ const getTypeMismatchError = ({ filename, expected, actual }) => {
 const cssModuleToInterface = (cssModuleKeys) => {
   const interfaceFields = cssModuleKeys
     .sort()
-    .map(key => `  '${key}': string;`)
+    .map(key => `  readonly '${key}': string;`)
     .join('\n');
 
   return `interface CssExports {\n${interfaceFields}\n}`;
