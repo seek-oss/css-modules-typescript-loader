@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Can add custom banners 1`] = `
+"// @generated
+interface CssExports {
+  'foo': string;
+}
+export const cssExports: CssExports;
+export default cssExports;
+"
+`;
