@@ -76,7 +76,7 @@ module.exports = function(content, ...rest) {
   const { failed, success } = makeDoneHandlers(this.async(), content, rest);
 
   const filename = this.resourcePath;
-  const { mode = 'emit' } = loaderUtils.getOptions(this) || {};
+  const { mode = 'emit', banner = bannerMessage } = loaderUtils.getOptions(this) || {};
   if (!validModes.includes(mode)) {
     return failed(new Error(`Invalid mode option: ${mode}`));
   }
@@ -96,7 +96,7 @@ module.exports = function(content, ...rest) {
     }
   }
 
-  const cssModuleDefinition = `${bannerMessage}\n${cssModuleToInterface(cssModuleKeys)}\n${cssModuleExport}`;
+  const cssModuleDefinition = `${banner}\n${cssModuleToInterface(cssModuleKeys)}\n${cssModuleExport}`;
 
   if (mode === 'verify') {
     read((err, fileContents) => {
