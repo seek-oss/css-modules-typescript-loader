@@ -58,6 +58,10 @@ Instead of emitting new TypeScript declarations, this will throw an error if a g
 
 This workflow is similar to using the [Prettier](https://github.com/prettier/prettier) [`--list-different` option](https://prettier.io/docs/en/cli.html#list-different).
 
+### Named Exports
+
+If using the `namedExports` option of `css-loader` then you can enable the same option in this loader. This can improve tree shaking and reduce bundled JavaScript size by dropping the original class names.
+
 ## With Thanks
 
 This package borrows heavily from [typings-for-css-modules-loader](https://github.com/Jimdo/typings-for-css-modules-loader).
